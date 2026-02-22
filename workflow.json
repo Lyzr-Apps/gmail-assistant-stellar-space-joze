@@ -1,0 +1,113 @@
+{
+  "workflow": {
+    "nodes": [
+      {
+        "id": "input_node",
+        "type": "Input",
+        "label": "User Query",
+        "nodeCategory": "input"
+      },
+      {
+        "id": "email_management_agent",
+        "type": "Agent",
+        "label": "Email Management Agent",
+        "nodeCategory": "agent"
+      },
+      {
+        "id": "output_node",
+        "type": "Output",
+        "label": "Agent Response",
+        "nodeCategory": "end"
+      }
+    ],
+    "edges": [
+      {
+        "source": "input_node",
+        "target": "email_management_agent"
+      },
+      {
+        "source": "email_management_agent",
+        "target": "output_node"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "node_id": "email_management_agent",
+      "agent_id": "699b1a8a4afb73473e8103fa",
+      "name": "Email Management Agent",
+      "description": "Fetches emails from Gmail, categorizes them by type (customer inquiry, internal, admin, marketing, personal), summarizes email threads, drafts professional replies matching business tone, sends approved replies, and creates follow-up calendar events.",
+      "agent_type": "json",
+      "provider_id": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.4,
+      "top_p": 0.95,
+      "tool_configs": [
+        {
+          "tool_name": "gmail",
+          "tool_source": "composio",
+          "action_names": [
+            "GMAIL_FETCH_EMAILS",
+            "GMAIL_FETCH_MESSAGE_BY_THREAD_ID",
+            "GMAIL_REPLY_TO_THREAD",
+            "GMAIL_SEND_EMAIL"
+          ],
+          "persist_auth": true,
+          "server_id": "",
+          "provider_uuid": "6980d819100ddff45dec4e80"
+        },
+        {
+          "tool_name": "googlecalendar",
+          "tool_source": "composio",
+          "action_names": [
+            "GOOGLECALENDAR_CREATE_EVENT"
+          ],
+          "persist_auth": true,
+          "server_id": "",
+          "provider_uuid": "6980d819100ddff45dec4e82"
+        }
+      ],
+      "image_output_config": null,
+      "voice_config": null,
+      "file_output": false,
+      "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "EmailAgentResponse",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "action_type": {
+                "type": "string",
+                "description": "The type of action performed: fetch_emails, summarize, draft_reply, send_reply, schedule_followup"
+              },
+              "summary": {
+                "type": "string",
+                "description": "Thread summary when summarizing, or general status message"
+              },
+              "draft_reply": {
+                "type": "string",
+                "description": "The drafted reply text"
+              },
+              "category": {
+                "type": "string",
+                "description": "Email category: customer, internal, admin, marketing, personal"
+              },
+              "status": {
+                "type": "string",
+                "description": "Status of the operation: success, error"
+              },
+              "message": {
+                "type": "string",
+                "description": "Human-readable message about what was done"
+              }
+            },
+            "required": ["action_type", "summary", "draft_reply", "category", "status", "message"],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ]
+}

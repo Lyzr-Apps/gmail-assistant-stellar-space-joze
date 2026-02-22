@@ -1,0 +1,24 @@
+{
+  "agent_name": "Email Management Agent",
+  "agent_id": "699b1a8a4afb73473e8103fa",
+  "description": "Fetches emails from Gmail, categorizes them by type (customer inquiry, internal, admin, marketing, personal), summarizes email threads, drafts professional replies matching business tone, sends approved replies, and creates follow-up calendar events.",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "action_type": "string",
+    "summary": "string",
+    "draft_reply": "string",
+    "category": "string",
+    "status": "string",
+    "message": "string"
+  },
+  "example_response": {
+    "action_type": "fetch_emails",
+    "summary": "Retrieved 15 emails from inbox. 4 customer inquiries, 5 internal, 2 admin, 3 marketing, 1 personal.",
+    "draft_reply": "",
+    "category": "",
+    "status": "success",
+    "message": "Successfully fetched and categorized 15 emails from your Gmail inbox."
+  }
+}

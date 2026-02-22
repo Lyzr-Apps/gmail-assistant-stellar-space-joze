@@ -1,0 +1,28 @@
+{
+  "agent_ids": {
+    "email_management_agent": "699b1a8a4afb73473e8103fa"
+  },
+  "agents": [
+    {
+      "node_id": "email_management_agent",
+      "agent_id": "699b1a8a4afb73473e8103fa",
+      "name": "Email Management Agent",
+      "agent_type": "json",
+      "provider_id": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.4,
+      "top_p": 0.95,
+      "tool_names": ["gmail", "googlecalendar"],
+      "composio_tools": {
+        "gmail": ["GMAIL_FETCH_EMAILS", "GMAIL_FETCH_MESSAGE_BY_THREAD_ID", "GMAIL_REPLY_TO_THREAD", "GMAIL_SEND_EMAIL"],
+        "googlecalendar": ["GOOGLECALENDAR_CREATE_EVENT"]
+      },
+      "image_output_config": null,
+      "voice_config": null,
+      "file_output": false
+    }
+  ],
+  "rag_ids": {},
+  "schedule_ids": {},
+  "schedules": []
+}
